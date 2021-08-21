@@ -1,0 +1,7 @@
+DatabaseClasses/bin/
+DatabaseClasses/obj/
+
+Dapper Example/.vs/
+Dapper Example/bin/
+Dapper Example/obj/
+Dapper Example/wwwroot/lib
