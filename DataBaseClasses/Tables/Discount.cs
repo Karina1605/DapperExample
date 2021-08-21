@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Simple.DataBaseModels
+namespace DataBaseClasses.Tables
 {
     public class Discount
     {
@@ -9,6 +9,7 @@ namespace Simple.DataBaseModels
         public int DiscountValue { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
-
+        public int ClientId { get; set; }
+        public virtual Client Client { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataBaseClasses.Views
 {
-    class ClientsAndOrders
+    public class ClientsAndOrders
     {
         public string LastName { get; set; }
         public string FirstName { get; set; }

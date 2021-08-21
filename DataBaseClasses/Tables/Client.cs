@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace Simple.DataBaseModels
+namespace DataBaseClasses.Tables
 {
     public class Client
     {     
