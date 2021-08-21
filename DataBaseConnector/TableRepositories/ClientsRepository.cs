@@ -12,7 +12,11 @@ namespace DataBaseConnector.TableRepositories
 {
     class ClientsRepository : ICrudOperationsFull<Client>
     {
-        public string ConnectionString { get; set; }
+        private string _connectionString;
+        public ClientsRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         public async Task<bool> Create(Client item)
         {

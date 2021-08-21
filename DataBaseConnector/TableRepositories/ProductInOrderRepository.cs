@@ -13,13 +13,18 @@ namespace DataBaseConnector.TableRepositories
 {
     class ProductInOrderRepository :ICrudOperationsFull<ProductInOrder>
     {
-        public string ConnectionString { get; set; }
+        private string _connectionString;
+
+        public ProductInOrderRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         public async Task<bool> Create(ProductInOrder item)
         {
             try
             {
-                IDbConnection c = new SqlConnection(ConnectionString);
+                IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO ProductInOrders (OrderId, ProductId, Count)
                     VALUES ({0}, {1}, {2})", item.OrderId, item.ProductId, item.Count));
@@ -35,7 +40,7 @@ namespace DataBaseConnector.TableRepositories
         {
             try
             {
-                IDbConnection c = new SqlConnection(ConnectionString);
+                IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     DELETE FROM ProductInOrders
                     WHERE ProductId = {0} AND OrderId ={1}", item.ProductId, item.OrderId));
@@ -49,7 +54,7 @@ namespace DataBaseConnector.TableRepositories
 
         public async Task<IEnumerable<ProductInOrder>> GetAll()
         {
-            using (IDbConnection c = new SqlConnection(ConnectionString))
+            using (IDbConnection c = new SqlConnection(_connectionString))
             {
                 return await c.QueryAsync<ProductInOrder>(@"
                     SELECT * FROM ProductInOrders;

@@ -12,13 +12,18 @@ namespace DataBaseConnector.TableRepositories
 {
     class ProductsRepository :ICrudOperationsFull<Product>
     {
-        public string ConnectionString { get; set; }
+        private string _connectionString;
+
+        public ProductsRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         public async Task<bool> Create(Product item)
         {
             try
             {
-                IDbConnection c = new SqlConnection(ConnectionString);
+                IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO Orders (Name, Count, Cost)
                     VALUES ({0}, {1}, {2})", item.Name, item.Count, item.Cost));
@@ -34,7 +39,7 @@ namespace DataBaseConnector.TableRepositories
         {
             try
             {
-                IDbConnection c = new SqlConnection(ConnectionString);
+                IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     DELETE FROM Products
                     WHERE Id = {0}", item.Id));
@@ -48,7 +53,7 @@ namespace DataBaseConnector.TableRepositories
 
         public async Task<IEnumerable<Product>> GetAll()
         {
-            using (IDbConnection c = new SqlConnection(ConnectionString))
+            using (IDbConnection c = new SqlConnection(_connectionString))
             {
                 return await c.QueryAsync<Product>(@"
                     SELECT * FROM Products;
@@ -58,7 +63,7 @@ namespace DataBaseConnector.TableRepositories
 
         public async Task<Product> GetById(int id)
         {
-            using (IDbConnection c = new SqlConnection(ConnectionString))
+            using (IDbConnection c = new SqlConnection(_connectionString))
             {
                 return await c.QueryFirstOrDefaultAsync<Product>($"SELECT * FROM Products WHERE Id ={id};");
             }
@@ -68,7 +73,7 @@ namespace DataBaseConnector.TableRepositories
         {
             try
             {
-                IDbConnection c = new SqlConnection(ConnectionString);
+                IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO Products
                     SET Name = {0},

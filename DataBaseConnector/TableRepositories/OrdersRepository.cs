@@ -12,13 +12,18 @@ namespace DataBaseConnector.TableRepositories
 {
     class OrdersRepository :ICrudOperationsFull<Order>
     {
-        public string ConnectionString { get; set; }
+        private string _connectionString;
+
+        public OrdersRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         public async Task<bool> Create(Order item)
         {
             try
             {
-                IDbConnection c = new SqlConnection(ConnectionString);
+                IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO Orders (ClientId, Orderdate)
                     VALUES ({0}, {1})", item.ClientId, item.OrderDate));
@@ -34,7 +39,7 @@ namespace DataBaseConnector.TableRepositories
         {
             try
             {
-                IDbConnection c = new SqlConnection(ConnectionString);
+                IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     DELETE FROM Orders
                     WHERE Id = {0}", item.Id));
@@ -48,7 +53,7 @@ namespace DataBaseConnector.TableRepositories
 
         public async Task<IEnumerable<Order>> GetAll()
         {
-            using (IDbConnection c = new SqlConnection(ConnectionString))
+            using (IDbConnection c = new SqlConnection(_connectionString))
             {
                 return await c.QueryAsync<Order>(@"
                     SELECT * FROM Orders;
@@ -58,7 +63,7 @@ namespace DataBaseConnector.TableRepositories
 
         public async Task<Order> GetById(int id)
         {
-            using (IDbConnection c = new SqlConnection(ConnectionString))
+            using (IDbConnection c = new SqlConnection(_connectionString))
             {
                 return await c.QueryFirstOrDefaultAsync<Order>($"SELECT * FROM Orders WHERE Id ={id};");
             }
@@ -68,7 +73,7 @@ namespace DataBaseConnector.TableRepositories
         {
             try
             {
-                IDbConnection c = new SqlConnection(ConnectionString);
+                IDbConnection c = new SqlConnection(c_onnectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO Orders
                     SET ClientId = {0},

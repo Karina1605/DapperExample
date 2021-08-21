@@ -12,13 +12,18 @@ namespace DataBaseConnector.TableRepositories
 {
     class DiscountsRepository : ICrudOperationsFull<Discount>
     {
-        public string ConnectionString { get; set; }
+        private string _connectionString;
+
+        public DiscountsRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         public async Task<bool> Create(Discount item)
         {
             try
             {
-                IDbConnection c = new SqlConnection(ConnectionString);
+                IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO Discounts (DiscountName, DiscountValue, StartDate, FinishDate, ClientId)
                     VALUES ({0}, {1}, {2}, {3}, {4})", item.DiscountName, item.DiscountValue, item.StartDate, item.FinishDate, item.ClientId));
@@ -34,7 +39,7 @@ namespace DataBaseConnector.TableRepositories
         {
             try
             {
-                IDbConnection c = new SqlConnection(ConnectionString);
+                IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     DELETE FROM Discounts
                     WHERE Id = {0}", item.Id));
@@ -48,7 +53,7 @@ namespace DataBaseConnector.TableRepositories
 
         public async Task<IEnumerable<Discount>> GetAll()
         {
-            using (IDbConnection c = new SqlConnection(ConnectionString))
+            using (IDbConnection c = new SqlConnection(_connectionString))
             {
                 return await c.QueryAsync<Discount>(@"
                     SELECT * FROM Discounts;
@@ -58,7 +63,7 @@ namespace DataBaseConnector.TableRepositories
 
         public async Task<Discount> GetById(int id)
         {
-            using (IDbConnection c = new SqlConnection(ConnectionString))
+            using (IDbConnection c = new SqlConnection(_connectionString))
             {
                 return await c.QueryFirstOrDefaultAsync<Discount>($"SELECT * FROM Discounts WHERE Id ={id};");
             }
@@ -68,7 +73,7 @@ namespace DataBaseConnector.TableRepositories
         {
             try
             {
-                IDbConnection c = new SqlConnection(ConnectionString);
+                IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO Clients
                     SET DiscountName = {0},

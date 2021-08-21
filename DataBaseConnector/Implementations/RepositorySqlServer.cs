@@ -8,20 +8,25 @@ using System.Text;
 
 namespace DataBaseConnector.Implementations
 {
-    class RepositorySqlServer : IStoreDb
+    public class RepositorySqlServer : IStoreDb
     {
-        private static readonly string _connectionString ="Server=localhost\\SQLEXPRESS;Database=StoreDataBase;Trusted_Connection=True;";
+        private readonly string _connectionString;
 
-        public ICrudOperationsFull<Client> Clients => throw new NotImplementedException();
+        public RepositorySqlServer (string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
-        public ICrudOperationsFull<Order> Orders => throw new NotImplementedException();
+        public ICrudOperationsFull<Client> Clients { get; private set; }
 
-        public ICrudOperationsFull<Discount> Discounts => throw new NotImplementedException();
+        public ICrudOperationsFull<Order> Orders { get; private set; }
 
-        public ICrudOperationsFull<Product> Products => throw new NotImplementedException();
+        public ICrudOperationsFull<Discount> Discounts { get; private set; }
 
-        public ICrudOperationsFull<ProductInOrder> ProductsInOrders => throw new NotImplementedException();
+        public ICrudOperationsFull<Product> Products { get; private set; }
 
-        public ICrudOperationsShort<ClientsAndOrders> ClientsAndOrders => throw new NotImplementedException();
+        public ICrudOperationsFull<ProductInOrder> ProductsInOrders { get; private set; }
+
+        public ICrudOperationsShort<ClientsAndOrders> ClientsAndOrders { get; private set; }
     }
 }
