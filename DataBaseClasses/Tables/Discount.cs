@@ -9,6 +9,7 @@ namespace DataBaseClasses.Tables
         public int DiscountValue { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
-
+        public int ClientId { get; set; }
+        public virtual Client Client { get; set; }
     }
 }

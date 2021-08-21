@@ -8,11 +8,11 @@ namespace DataBaseConnector.DataBaseInterfaces
 {
     interface IStoreDb
     {
-        ICrudOperations<Client> Clients { get; }
-        ICrudOperations<Order> Orders { get; }
-        ICrudOperations<Discount> Discounts { get; }
-        ICrudOperations<Product> Products { get; }
-        ICrudOperations<ProductInOrder> ProductsInOrders { get; }
-        ICrudOperations<ClientsAndOrders> ClientsAndOrders { get; }
+        ICrudOperationsFull<Client> Clients { get; }
+        ICrudOperationsFull<Order> Orders { get; }
+        ICrudOperationsFull<Discount> Discounts { get; }
+        ICrudOperationsFull<Product> Products { get; }
+        ICrudOperationsFull<ProductInOrder> ProductsInOrders { get; }
+        ICrudOperationsShort<ClientsAndOrders> ClientsAndOrders { get; }
     }
 }

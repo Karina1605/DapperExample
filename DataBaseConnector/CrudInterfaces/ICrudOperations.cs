@@ -4,12 +4,10 @@ using System.Text;
 using System.Threading.Tasks;
 namespace DataBaseConnector.CrudInterfaces
 {
-    interface ICrudOperations<T>
+    interface ICrudOperationsShort<T>
     {
-        Task<bool> Create(T item);
-        Task<bool> Delete(T item);
-        Task<bool> Update(T item);
-        Task<T> GetById<K>(K id);
+        Task<T> GetById(int id);
         Task<IEnumerable<T>> GetAll();
+        string ConnectionString { get; set; }
     }
 }
