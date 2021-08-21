@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Simple.DataBaseModels
+namespace DataBaseClasses.Tables
 {
     public class Discount
     {
