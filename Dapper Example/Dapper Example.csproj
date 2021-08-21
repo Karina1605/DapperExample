@@ -10,4 +10,13 @@
     <ProjectReference Include="..\DataBaseConnector\DataBaseConnector.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\ClientsAndOrders\" />
+    <Folder Include="Pages\Clients\" />
+    <Folder Include="Pages\Discounts\" />
+    <Folder Include="Pages\ProductsInOrders\" />
+    <Folder Include="Pages\Products\" />
+    <Folder Include="Pages\Orders\" />
+  </ItemGroup>
+
 </Project>

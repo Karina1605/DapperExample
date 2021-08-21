@@ -11,7 +11,7 @@ using Dapper;
 
 namespace DataBaseConnector.TableRepositories
 {
-    class ProductInOrderRepository :ICrudOperationsFull<ProductInOrder>
+     public class ProductInOrderRepository :ICrudOperationsFull<ProductInOrder>
     {
         private string _connectionString;
 

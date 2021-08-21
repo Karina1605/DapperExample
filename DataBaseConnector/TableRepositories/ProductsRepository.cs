@@ -10,7 +10,7 @@ using Dapper;
 
 namespace DataBaseConnector.TableRepositories
 {
-    class ProductsRepository :ICrudOperationsFull<Product>
+    public class ProductsRepository :ICrudOperationsFull<Product>
     {
         private string _connectionString;
 

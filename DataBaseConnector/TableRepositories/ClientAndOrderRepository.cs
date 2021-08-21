@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 
 namespace DataBaseConnector.TableRepositories
 {
-    class ClientAndOrderRepository : ICrudOperationsShort<ClientsAndOrders>
+    public class ClientAndOrderRepository : ICrudOperationsShort<ClientsAndOrders>
     {
         private string _connectionString;
 
