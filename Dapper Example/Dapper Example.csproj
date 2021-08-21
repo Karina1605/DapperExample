@@ -5,4 +5,9 @@
     <RootNamespace>Dapper_Example</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DataBaseClasses\DataBaseClasses.csproj" />
+    <ProjectReference Include="..\DataBaseConnector\DataBaseConnector.csproj" />
+  </ItemGroup>
+
 </Project>

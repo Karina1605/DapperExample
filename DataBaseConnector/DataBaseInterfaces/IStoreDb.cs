@@ -6,7 +6,7 @@ using DataBaseClasses.Tables;
 using DataBaseClasses.Views;
 namespace DataBaseConnector.DataBaseInterfaces
 {
-    interface IStoreDb
+    public interface IStoreDb
     {
         ICrudOperationsFull<Client> Clients { get; }
         ICrudOperationsFull<Order> Orders { get; }

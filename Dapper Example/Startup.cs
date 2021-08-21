@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataBaseConnector.DataBaseInterfaces;
+using DataBaseConnector.Implementations;
 
 namespace Dapper_Example
 {
@@ -24,6 +26,8 @@ namespace Dapper_Example
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            string connect = Configuration.GetConnectionString("default");
+            services.AddScoped<IStoreDb, RepositorySqlServer>(e => new RepositorySqlServer(connect));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
