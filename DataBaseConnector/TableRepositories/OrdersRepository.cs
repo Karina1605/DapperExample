@@ -73,7 +73,7 @@ namespace DataBaseConnector.TableRepositories
         {
             try
             {
-                IDbConnection c = new SqlConnection(c_onnectionString);
+                IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO Orders
                     SET ClientId = {0},

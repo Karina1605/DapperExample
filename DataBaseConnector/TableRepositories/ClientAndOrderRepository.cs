@@ -3,31 +3,36 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using DataBaseConnector.CrudInterfaces;
+using DataBaseClasses.Views;
 using Dapper;
 using System.Data;
 using System.Data.SqlClient;
 
 namespace DataBaseConnector.TableRepositories
 {
-    class ClientAndOrderRepository : ICrudOperationsShort<ClientAndOrderRepository>
+    class ClientAndOrderRepository : ICrudOperationsShort<ClientsAndOrders>
     {
-        public string ConnectionString { get; set; }
+        private string _connectionString;
 
-        public async Task<IEnumerable<ClientAndOrderRepository>> GetAll()
+        public ClientAndOrderRepository(string connectionString)
         {
-            using (IDbConnection c =new SqlConnection(ConnectionString))
+            _connectionString = connectionString;
+        }
+        public async Task<IEnumerable<ClientsAndOrders>> GetAll()
+        {
+            using (IDbConnection c =new SqlConnection(_connectionString))
             {
-                return await c.QueryAsync<ClientAndOrderRepository>(@"
+                return await c.QueryAsync<ClientsAndOrders>(@"
                     SELECT * FROM ClientsAndOrders;
                 ");
             }
         }
 
-        public async Task<ClientAndOrderRepository> GetById(int id)
+        public async Task<ClientsAndOrders> GetById(int id)
         {
-            using (IDbConnection c = new SqlConnection(ConnectionString))
+            using (IDbConnection c = new SqlConnection(_connectionString))
             {
-                return await c.QueryFirstOrDefaultAsync<ClientAndOrderRepository>($"SELECT * FROM ClientsAndOrders WHERE Id ={id};");
+                return await c.QueryFirstOrDefaultAsync<ClientsAndOrders>($"SELECT * FROM ClientsAndOrders WHERE Id ={id};");
             }
         }
     }

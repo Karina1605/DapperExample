@@ -22,7 +22,7 @@ namespace DataBaseConnector.TableRepositories
         {
             try
             {
-                IDbConnection c = new SqlConnection(ConnectionString);
+                IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO Clients (LastName, FirstName, Email, Password)
                     VALUES ({0}, {1}, {2}, {3})", item.LastName, item.FirstName, item.Email, item.Password));
@@ -38,7 +38,7 @@ namespace DataBaseConnector.TableRepositories
         {
             try
             {
-                IDbConnection c = new SqlConnection(ConnectionString);
+                IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     DELETE FROM Clients
                     WHERE Id = {0}", item.Id));
@@ -52,7 +52,7 @@ namespace DataBaseConnector.TableRepositories
 
         public async Task<IEnumerable<Client>> GetAll()
         {
-            using (IDbConnection c = new SqlConnection(ConnectionString))
+            using (IDbConnection c = new SqlConnection(_connectionString))
             {
                 return await c.QueryAsync<Client>(@"
                     SELECT * FROM Clients;
@@ -62,7 +62,7 @@ namespace DataBaseConnector.TableRepositories
 
         public async Task<Client> GetById(int id)
         {
-            using (IDbConnection c = new SqlConnection(ConnectionString))
+            using (IDbConnection c = new SqlConnection(_connectionString))
             {
                 return await c.QueryFirstOrDefaultAsync<Client>($"SELECT * FROM Clients WHERE Id ={id};");
             }
@@ -72,7 +72,7 @@ namespace DataBaseConnector.TableRepositories
         {
             try
             {
-                IDbConnection c = new SqlConnection(ConnectionString);
+                IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO Clients
                     SET LastName = {0},

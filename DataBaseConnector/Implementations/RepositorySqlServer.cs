@@ -5,6 +5,7 @@ using DataBaseConnector.DataBaseInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using DataBaseConnector.TableRepositories;
 
 namespace DataBaseConnector.Implementations
 {
@@ -15,6 +16,12 @@ namespace DataBaseConnector.Implementations
         public RepositorySqlServer (string connectionString)
         {
             _connectionString = connectionString;
+            Clients = new ClientsRepository(_connectionString);
+            Orders = new OrdersRepository(_connectionString);
+            Discounts = new DiscountsRepository(_connectionString);
+            Products = new ProductsRepository(_connectionString);
+            ProductsInOrders = new ProductInOrderRepository(_connectionString);
+            ClientsAndOrders = new ClientAndOrderRepository(_connectionString);
         }
 
         public ICrudOperationsFull<Client> Clients { get; private set; }
