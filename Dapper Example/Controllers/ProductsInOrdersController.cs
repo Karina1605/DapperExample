@@ -18,11 +18,6 @@ namespace Dapper_Example.Controllers
             _repository = store.ProductsInOrders;
         }
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
         [HttpGet("SignOn")]
         public IActionResult AddNew()
         {

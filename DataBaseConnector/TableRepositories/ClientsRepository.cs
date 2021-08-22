@@ -25,10 +25,10 @@ namespace DataBaseConnector.TableRepositories
                 IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO Clients (LastName, FirstName, Email, Password)
-                    VALUES ({0}, {1}, {2}, {3})", item.LastName, item.FirstName, item.Email, item.Password));
+                    VALUES ('{0}', '{1}', '{2}', '{3}')", item.LastName, item.FirstName, item.Email, item.Password));
                 return true;
             }
-            catch
+            catch (Exception e)
             {
                 return false;
             }
@@ -54,9 +54,10 @@ namespace DataBaseConnector.TableRepositories
         {
             using (IDbConnection c = new SqlConnection(_connectionString))
             {
-                return await c.QueryAsync<Client>(@"
+                var res =await c.QueryAsync<Client>(@"
                     SELECT * FROM Clients;
                 ");
+                return res;
             }
         }
 
@@ -75,10 +76,10 @@ namespace DataBaseConnector.TableRepositories
                 IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO Clients
-                    SET LastName = {0},
-                        FisrtName = {1},
-                        Email = {2},
-                        Password = {3},
+                    SET LastName = '{0}',
+                        FisrtName = '{1}',
+                        Email = '{2}',
+                        Password = '{3}',
                     WHERE Id ={4}", item.LastName, item.FirstName, item.Email, item.Id));
                 return true;
             }

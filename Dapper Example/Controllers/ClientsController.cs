@@ -17,20 +17,16 @@ namespace Dapper_Example.Controllers
         {
             _repository = store.Clients;
         }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet("SignOn")]
         public IActionResult AddNew()
         {
             return View();
         }
-        public async Task<IActionResult> AddNew([FromBody]Client client)
+        [HttpPost("SignOn")]
+        public async Task<IActionResult> AddNew([FromForm]Client client)
         {
-            if (ModelState.IsValid)
+            var modelState = ModelState.IsValid;
+            //if (modelState)
             {
                 var res = await _repository.Create(client);
                 if (res)

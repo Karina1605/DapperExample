@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model DataBaseClasses.Tables.Order; 
+@{
+    ViewData["Title"] = "Create new Order";
+    
+    ViewBag.Items = (ViewData["items"] as IEnumerable<DataBaseClasses.Tables.Client>).Select(e => new SelectListItem(){ Text = e.LastName + " " + e.FirstName, Value = e.Id.ToString() } );
+
+}
+<h2>Добавление покупателя</h2>
+@using (Html.BeginForm("AddNewOrder", "Orders", FormMethod.Post))
+{
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label( "","Заказчик", htmlAttributes: new { @class = "control-label col-md-2" })
+           
+            <div class="col-md-10">
+                @Html.DropDownList("aaa", ViewBag.Items, "Client", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("", "Дата", htmlAttributes: new { @class = "control-label col-md-2", })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control" } })
+              
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Создать", "AddNewOrder")
+                <input type="submit" value="Создать" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("К общему списку", "Index")
+</div>

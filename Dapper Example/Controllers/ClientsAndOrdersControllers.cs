@@ -16,11 +16,7 @@ namespace Dapper_Example.Controllers
         {
             _repository = store.ClientsAndOrders;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
-
+     
         [HttpGet("GetAllClientsWithTheirOrders")]
         public async Task<IActionResult> GetAllClientsWithTheirOrders()
         {

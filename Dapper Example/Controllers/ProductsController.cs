@@ -56,11 +56,6 @@ namespace Dapper_Example.Controllers
             if (res)
                 return RedirectToAction("GetAll");
             return StatusCode(500);
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
+        }  
     }
 }
