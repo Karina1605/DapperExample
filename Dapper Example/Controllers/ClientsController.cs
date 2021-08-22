@@ -30,10 +30,14 @@ namespace Dapper_Example.Controllers
         }
         public async Task<IActionResult> AddNew([FromBody]Client client)
         {
-            var res = await _repository.Create(client);
-            if (res)
-                return View();
-            return StatusCode(500);
+            if (ModelState.IsValid)
+            {
+                var res = await _repository.Create(client);
+                if (res)
+                    return View();
+            }
+            
+            return StatusCode(415, new {message ="Incorrect format" });
         }
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete([FromBody] Client client)
