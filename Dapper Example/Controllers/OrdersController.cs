@@ -25,8 +25,8 @@ namespace Dapper_Example.Controllers
             //System.Diagnostics.Debug.WriteLine((ViewData["items"] as IEnumerable<Client>).Count());
             return View();
         }
-        [HttpPost]
-        public async Task<IActionResult> AddNewOrder([FromBody] Order order)
+        [HttpPost("SignOn")]
+        public async Task<IActionResult> AddNewOrder([FromForm] Order order)
         {
             var res = await _repository.Orders.Create(order);
             if (res)
