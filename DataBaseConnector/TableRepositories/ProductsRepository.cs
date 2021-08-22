@@ -10,7 +10,7 @@ using Dapper;
 
 namespace DataBaseConnector.TableRepositories
 {
-    class ProductsRepository :ICrudOperationsFull<Product>
+    public class ProductsRepository :ICrudOperationsFull<Product>
     {
         private string _connectionString;
 
@@ -26,7 +26,7 @@ namespace DataBaseConnector.TableRepositories
                 IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO Orders (Name, Count, Cost)
-                    VALUES ({0}, {1}, {2})", item.Name, item.Count, item.Cost));
+                    VALUES ('{0}', {1}, {2})", item.Name, item.Count, item.Cost));
                 return true;
             }
             catch
@@ -76,8 +76,8 @@ namespace DataBaseConnector.TableRepositories
                 IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO Products
-                    SET Name = {0},
-                        Counr = {1},
+                    SET Name = '{0}',
+                        Count = {1},
                         Cost ={2}
                     WHERE Id ={3}",
                         item.Name,

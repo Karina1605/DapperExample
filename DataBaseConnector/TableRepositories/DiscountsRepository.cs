@@ -10,7 +10,7 @@ using Dapper;
 
 namespace DataBaseConnector.TableRepositories
 {
-    class DiscountsRepository : ICrudOperationsFull<Discount>
+    public class DiscountsRepository : ICrudOperationsFull<Discount>
     {
         private string _connectionString;
 
@@ -26,7 +26,12 @@ namespace DataBaseConnector.TableRepositories
                 IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO Discounts (DiscountName, DiscountValue, StartDate, FinishDate, ClientId)
-                    VALUES ({0}, {1}, {2}, {3}, {4})", item.DiscountName, item.DiscountValue, item.StartDate, item.FinishDate, item.ClientId));
+                    VALUES ('{0}', {1}, '{2}', '{3}', {4})", 
+                    item.DiscountName, 
+                    item.DiscountValue, 
+                    item.StartDate, 
+                    item.FinishDate, 
+                    item.ClientId));
                 return true;
             }
             catch
@@ -76,7 +81,7 @@ namespace DataBaseConnector.TableRepositories
                 IDbConnection c = new SqlConnection(_connectionString);
                 await c.ExecuteScalarAsync(String.Format(@"
                     INSERT INTO Clients
-                    SET DiscountName = {0},
+                    SET DiscountName = '{0}',
                         DiscountValue = {1},
                         StartDate = {2},
                         FinishDate = {3},

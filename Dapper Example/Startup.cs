@@ -28,6 +28,7 @@ namespace Dapper_Example
             services.AddRazorPages();
             string connect = Configuration.GetConnectionString("default");
             services.AddScoped<IStoreDb, RepositorySqlServer>(e => new RepositorySqlServer(connect));
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +52,10 @@ namespace Dapper_Example
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
             });
         }
     }
